@@ -2,6 +2,10 @@ import { useFormik } from 'formik';
 import Button from '../component/UI/Button';
 import InputField from '../component/UI/InputField'
 import { step3Schema } from '../schemas';
+import { useDispatch, useSelector } from 'react-redux';
+import { addAccountInfo, resetForm } from '../features/form/formSlice';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const initialValues = {
     username: '',
@@ -10,18 +14,31 @@ const initialValues = {
 
 export default function AccountCreation({ prevStep }) {
 
+    const dispatch = useDispatch();
+    const accountInfo = useSelector((state) => state.form.accountInfo);
+    const reduxData = useSelector((state) => state.form);
+
     const { values, errors, touched, handleChange, handleBlur, handleSubmit, isValid } = useFormik({
-        initialValues,
+        initialValues: accountInfo || initialValues,
         validationSchema: step3Schema,
         validateOnMount: true,
+        enableReinitialize: true,
         onSubmit: (values) => {
             console.log("submit", values);
+            dispatch(addAccountInfo(values));
+
+            const data = {
+                ...reduxData.personalInfo,
+                ...reduxData.addressInfo,
+                ...values,
+            }
+            console.log("final data : ", data);
+
+            dispatch(resetForm());
+            
         }
     });
 
-    const handleBack = () => {
-        prevStep();
-    }
     return (
         <form
             onSubmit={handleSubmit}
@@ -52,8 +69,8 @@ export default function AccountCreation({ prevStep }) {
                     error={errors.password}
                     touched={touched.password}
                 />
-                <Button type='button' onClick={handleBack}>Back</Button>
-                <Button type="submit" disabled={!(isValid)}>
+                <Button type='button' onClick={prevStep}>Back</Button>
+                <Button type="submit" disabled={!isValid}>
                     submit
                 </Button>
             </div>

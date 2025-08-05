@@ -2,6 +2,8 @@ import { useFormik } from 'formik';
 import Button from '../component/UI/Button';
 import InputField from '../component/UI/InputField'
 import { step1Schema } from '../schemas'
+import { useDispatch, useSelector } from 'react-redux';
+import { addPersonalInfo } from '../features/form/formSlice';
 
 const initialValues = {
     firstName: '',
@@ -10,13 +12,17 @@ const initialValues = {
 }
 
 export default function PersonalInfo({ nextStep }) {
+    const dispatch = useDispatch();
+    const personalInfo = useSelector((state) => state.form.personalInfo);
 
     const { values, errors, touched, handleBlur, handleChange, handleSubmit, isValid } = useFormik({
-        initialValues,
+        initialValues: personalInfo || initialValues,
         validationSchema: step1Schema,
         validateOnMount: true,
+        enableReinitialize: true,
         onSubmit: (values) => {
             console.log("submit", values);
+            dispatch(addPersonalInfo(values));
             nextStep();
         }
     });
@@ -63,7 +69,7 @@ export default function PersonalInfo({ nextStep }) {
                     touched={touched.email}
                 />
 
-                <Button type="submit" disabled={!(isValid)}>
+                <Button type="submit" disabled={!isValid}>
                     Next
                 </Button>
 

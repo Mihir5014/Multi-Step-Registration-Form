@@ -2,6 +2,8 @@ import { useFormik } from 'formik';
 import Button from '../component/UI/Button';
 import InputField from '../component/UI/InputField'
 import { step2Schema } from '../schemas';
+import { useDispatch, useSelector } from 'react-redux';
+import { addAddressInfo } from '../features/form/formSlice';
 
 const initialValues = {
     streetAddress: '',
@@ -11,20 +13,21 @@ const initialValues = {
 }
 
 export default function AddressInfo({ nextStep, prevStep }) {
+    const dispatch = useDispatch();
+    const addressInfo = useSelector((state) => state.form.addressInfo);
 
     const { values, errors, touched, handleChange, handleBlur, handleSubmit, isValid } = useFormik({
-        initialValues,
+        initialValues: addressInfo || initialValues,
         validationSchema: step2Schema,
         validateOnMount: true,
+        enableReinitialize: true,
         onSubmit: (values) => {
             console.log("address ", values);
+            dispatch(addAddressInfo(values));
             nextStep();
         }
     });
 
-    const handleBack = () => {
-        prevStep();
-    }
     return (
         <form
             onSubmit={handleSubmit}
@@ -74,8 +77,8 @@ export default function AddressInfo({ nextStep, prevStep }) {
                     error={errors.zipcode}
                     touched={touched.zipcode}
                 />
-                <Button type='button' onClick={handleBack}>Back</Button>
-                <Button type="submit" disabled={!(isValid)}>
+                <Button type='button' onClick={prevStep}>Back</Button>
+                <Button type="submit" disabled={!isValid}>
                     Next
                 </Button>
             </div>
