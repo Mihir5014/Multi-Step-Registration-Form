@@ -1,8 +1,15 @@
 
-export default function Button({ className = '', children, onClick }) {
+export default function Button({ type, className = '', children, disabled, ...rest }) {
     return (
-        <button onClick={onClick}
-            className={`bg-blue-500 hover:bg-blue-600 text-white cursor-pointer font-semibold py-2 px-4 m-1 rounded shadow-md ${className}`}>
+
+        <button
+            type={type}
+            disabled={disabled}
+            {...rest}
+            className={`py-2 px-4 m-1 rounded shadow-md font-semibold 
+        ${disabled ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600 cursor-pointer text-white'} 
+        ${className}`}
+        >
             {children}
         </button>
     )
