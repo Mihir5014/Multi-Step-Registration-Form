@@ -19,9 +19,8 @@ export default function PersonalInfo({ nextStep }) {
         initialValues: personalInfo || initialValues,
         validationSchema: step1Schema,
         validateOnMount: true,
-        enableReinitialize: true,
         onSubmit: (values) => {
-            console.log("submit", values);
+            
             dispatch(addPersonalInfo(values));
             nextStep();
         }

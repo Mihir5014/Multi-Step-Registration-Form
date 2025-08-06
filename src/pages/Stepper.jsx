@@ -20,6 +20,9 @@ export default function Stepper() {
         }
     };
 
+    const lastStep = () => {
+        setCurrentStep(1);
+    }
 
     return <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
         <div className="w-full max-w-2xl bg-white shadow-lg rounded-lg p-6">
@@ -34,7 +37,7 @@ export default function Stepper() {
             <div className='max-w-2xl mx-auto flex justify-center items-center'>
                 {currentStep === 1 && <PersonalInfo nextStep={nextStep} />}
                 {currentStep === 2 && <AddressInfo nextStep={nextStep} prevStep={prevStep} />}
-                {currentStep === 3 && <AccountCreation prevStep={prevStep} />}
+                {currentStep === 3 && <AccountCreation prevStep={prevStep} lastStep={lastStep} />}
             </div>
         </div>
     </div>

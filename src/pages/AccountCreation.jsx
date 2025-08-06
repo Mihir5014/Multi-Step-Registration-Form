@@ -12,7 +12,9 @@ const initialValues = {
     password: '',
 }
 
-export default function AccountCreation({ prevStep }) {
+export default function AccountCreation({ prevStep, lastStep }) {
+    const [submit, setSubmit] = useState(false);
+    const navigate = useNavigate();
 
     const dispatch = useDispatch();
     const accountInfo = useSelector((state) => state.form.accountInfo);
@@ -22,9 +24,7 @@ export default function AccountCreation({ prevStep }) {
         initialValues: accountInfo || initialValues,
         validationSchema: step3Schema,
         validateOnMount: true,
-        enableReinitialize: true,
         onSubmit: (values) => {
-            console.log("submit", values);
             dispatch(addAccountInfo(values));
 
             const data = {
@@ -32,12 +32,19 @@ export default function AccountCreation({ prevStep }) {
                 ...reduxData.addressInfo,
                 ...values,
             }
-            console.log("final data : ", data);
+            console.log("user data : ", data);
 
-            dispatch(resetForm());
-            
+            setSubmit(true);
         }
     });
+
+    useEffect(() => {
+        if (submit) {
+            dispatch(resetForm());
+            alert('form submitted')
+            lastStep();
+        }
+    }, [submit, navigate, lastStep]);
 
     return (
         <form

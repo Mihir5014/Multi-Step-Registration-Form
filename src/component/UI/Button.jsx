@@ -1,7 +1,5 @@
-
 export default function Button({ type, className = '', children, disabled, ...rest }) {
     return (
-
         <button
             type={type}
             disabled={disabled}
@@ -12,5 +10,6 @@ export default function Button({ type, className = '', children, disabled, ...re
         >
             {children}
         </button>
+
     )
 }

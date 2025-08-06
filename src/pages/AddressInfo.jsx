@@ -20,9 +20,8 @@ export default function AddressInfo({ nextStep, prevStep }) {
         initialValues: addressInfo || initialValues,
         validationSchema: step2Schema,
         validateOnMount: true,
-        enableReinitialize: true,
         onSubmit: (values) => {
-            console.log("address ", values);
+    
             dispatch(addAddressInfo(values));
             nextStep();
         }

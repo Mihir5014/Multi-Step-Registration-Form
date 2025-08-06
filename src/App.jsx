@@ -8,7 +8,8 @@ function App() {
     {
       path: '/',
       element: <Stepper />
-    }
+    },
+    
   ]);
 
   return (

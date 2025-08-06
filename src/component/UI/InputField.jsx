@@ -11,7 +11,7 @@ export default function InputField({
     touched
 }) {
     return (
-        <div>
+        <div className="w-full">
             <input
                 type={type}
                 id={id}
@@ -20,7 +20,7 @@ export default function InputField({
                 value={value}
                 onChange={onChange}
                 onBlur={onBlur}
-                className="w-100 border rounded-md focus:outline-none p-2 m-2"
+                className="w-full border rounded-md focus:outline-none p-2 m-1"
             />
             {error && touched && (
                 <p className="text-sm text-red-500 px-2">{error}</p>
