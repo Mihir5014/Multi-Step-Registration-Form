@@ -1,12 +1,59 @@
-# React + Vite
+#  Multi-Step User Registration Form
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A clean and responsive multi-step registration form built using **React**, **Redux Toolkit**, and **Tailwind CSS**. The form captures user input across multiple steps, handles validation with **Formik** and **Yup**, uses **Redux Toolkit** for global state management, and resets after successful submission.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+##  Features
 
-## Expanding the ESLint configuration
+-  Multi-step form with smooth transitions
+-  Global state management via **Redux Toolkit**
+-  Client-side validation using **Formik** and **Yup**
+-  Data persists across steps via global state
+-  Form data resets after successful submission
+-  Styled with **Tailwind CSS** for a modern UI
+-  Navigation using **React Router**
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+##  Form Steps Overview
+
+###  Step 1: Personal Information
+- First Name
+- Last Name
+- Email Address  
+ **Next** button (enabled only when all fields are valid)
+
+---
+
+###  Step 2: Address Information
+- Street Address
+- City
+- State
+- Zip Code  
+ **Back** and **Next** buttons
+
+---
+
+###  Step 3: Account Creation
+- Username
+- Password  
+ **Back** and **Submit** buttons  
+ On submit: logs the complete form data to the console and resets the form
+
+---
+
+##  Tech Stack
+
+| Tech             | Purpose                            |
+|------------------|-------------------------------------|
+| React            | UI Library                         |
+| Redux Toolkit    | Global state management            |
+| React Redux      | Connects Redux to React            |
+| Formik           | Form state and handling            |
+| Yup              | Form validation                    |
+| React Router     | Navigation between steps           |
+| Tailwind CSS     | Utility-first CSS framework        |
+
+---
+
